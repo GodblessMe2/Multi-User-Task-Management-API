@@ -1,5 +1,5 @@
 class APIQuery<T> {
-  query: any; // Change to any since QueryBuilder is not strictly typed for this context
+  query: any;
   queryString: any;
 
   constructor(query: any, queryString: any) {
@@ -25,9 +25,9 @@ class APIQuery<T> {
   sort(): this {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(",").join(" ");
-      this.query.orderBy(sortBy); // QueryBuilder orderBy method
+      this.query.orderBy(sortBy);
     } else {
-      this.query.orderBy("task.createdAt", "DESC"); // Default sort by createdAt
+      this.query.orderBy("task.createdAt", "DESC"); 
     }
     return this;
   }
@@ -38,9 +38,9 @@ class APIQuery<T> {
         .split(",")
         .map((field: string) => `task.${field}`)
         .join(", ");
-      this.query.select(fields); // QueryBuilder select method
+      this.query.select(fields);
     } else {
-      this.query.select(["task"]); // Default to selecting all fields of "task"
+      this.query.select(["task"]); 
     }
     return this;
   }
@@ -50,7 +50,7 @@ class APIQuery<T> {
     const limit = this.queryString.limit * 1 || 100;
     const skip = (page - 1) * limit;
 
-    this.query.skip(skip).limit(limit); // QueryBuilder pagination methods
+    this.query.skip(skip).limit(limit);
     return this;
   }
 }
